@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<window>
+	<defaultcontrol always="true">3012</defaultcontrol>
+	<onload>Dialog.Close(fullscreeninfo,true)</onload>
+	<onload>Dialog.Close(videoosd,true)</onload>
+	
+	<!-- Animation. -->
+	<animation type="WindowOpen" reversible="false">
+		<effect type="fade" start="0" end="100" time="400" />
+		<effect type="slide" start="0,306" end="0,0" time="400" />
+	</animation>
+	<animation type="WindowClose" reversible="false">
+		<effect type="fade" start="100" end="0" time="400" />
+		<effect type="slide" start="0,0" end="0,306" time="400" />
+	</animation>
+
+	<controls>
+		<control type="group">	
+			<!-- Dimensions and position of entire pop-up. -->
+			<right>10</right>
+			<bottom>10</bottom>
+			<width>544</width>
+			<height>306</height>
+			
+			<!-- Fanart. -->
+			<control type="group">
+				<!-- Fanart transparency. -->
+				<animation end="70" effect="fade" time="0" condition="true">true</animation>
+			
+				<!-- If fanart is available, display it. -->
+				<control type="image">
+					<aspectratio>scale</aspectratio>
+					<texture scalediffuse="false">$INFO[Window.Property(fanart)]</texture>
+				</control>
+				
+				<!-- If fanart isn't available, try landscape. -->
+				<control type="image">
+					<aspectratio>scale</aspectratio>
+					<texture scalediffuse="false">$INFO[Window.Property(landscape)]</texture>
+					<visible>String.IsEmpty(Window.Property(fanart))</visible>
+				</control>
+					
+				<!-- If neither is available, display a blank image. -->
+				<control type="image">
+					<texture colordiffuse="D9000000">white.jpg</texture>
+					<visible>String.IsEmpty(Window.Property(landscape)) + String.IsEmpty(Window.Property(fanart))</visible>
+				</control>					
+			</control>
+			
+			<!-- Black header and next episode information. -->
+			<control type="group">
+				<height>78</height>
+				
+				<!-- Black header. -->
+				<control type="image">
+					<texture colordiffuse="D9000000">white.jpg</texture>
+				</control>
+				
+				<!-- Progress bar countdown. -->
+				<control type="progress" id="3014">
+					<width>100%</width>
+					<top>0r</top>
+					<height>5</height>
+					<reveal>true</reveal>
+					<righttexture></righttexture>
+					<overlaytexture></overlaytexture>
+					<lefttexture></lefttexture>
+					<texturebg colordiffuse="00ffffff">white.jpg</texturebg>
+					<midtexture colordiffuse="button_focus">white.jpg</midtexture>
+                </control>
+				
+				<!-- Fake "full" progress bar which covers the working progress bar if time remaining is more than 59 seconds. -->
+				<control type="image">
+					<top>0r</top>
+					<height>5</height>
+					<texture colordiffuse="button_focus">white.jpg</texture>
+					<visible>Integer.IsGreater(Player.TimeRemaining,59)</visible>
+                </control>
+				
+				<!-- Countdown. -->
+				<!-- Only display seconds, if time remaining is less than 59 seconds. -->
+				<control type="label">
+					<font>font14</font>
+					<left>502</left>
+					<top>-3</top>
+					<label>[COLOR B3dddddd]$INFO[Player.TimeRemaining(ss),,][/COLOR]</label>
+					<visible>!Integer.IsGreater(Player.TimeRemaining,59)</visible>
+				</control>
+				<!-- Display full time format if time remaining is more than 59 seconds. -->
+				<control type="label">
+					<font>font14</font>
+					<left>457</left>
+					<top>-3</top>
+					<label>[COLOR B3dddddd]$INFO[Player.TimeRemaining,,][/COLOR]</label>
+					<visible>Integer.IsGreater(Player.TimeRemaining,59)</visible>
+				</control>
+				
+				<!-- "Still there?" text. -->
+				<control type="label">
+					<top>-3</top>
+					<left>6</left>
+					<right>6</right>
+					<wrapmultiline>false</wrapmultiline>
+					<scroll>true</scroll>
+					<align>left</align>
+					<textcolor>B3dddddd</textcolor>
+					<font>font14</font>
+					<label>$ADDON[service.upnext 30024]</label>
+					<visible>!String.IsEmpty(Window.Property(title))</visible>
+				</control>
+				
+				<!-- Up next text and episode information.  -->
+				<control type="label">
+					<font>font27</font>
+					<top>39r</top>
+					<left>7</left>
+					<right>8</right>
+					<wrapmultiline>false</wrapmultiline>
+					<scroll>true</scroll>
+					<align>left</align>
+					<textcolor>B3dddddd</textcolor>
+					<label>$ADDON[service.upnext 30008] - [COLOR button_focus]$INFO[Window.Property(season),S,]$INFO[Window.Property(episode),E,: ][/COLOR]$INFO[Window.Property(title)]</label>
+					<visible>!String.IsEmpty(Window.Property(title))</visible>
+				</control>
+				
+			</control>
+			
+			<!-- Buttons. -->
+			<control type="grouplist">
+				<orientation>horizontal</orientation>
+				<height>55</height>
+				<bottom>5</bottom>
+				<left>4</left>
+				<itemgap>4</itemgap>
+				<control type="button" id="3012">
+					<label>$ADDON[service.upnext 30006]</label>
+					<width >266</width>
+					<font>font13</font>
+					<textcolor>B3dddddd</textcolor>
+					<aligny>center</aligny>
+					<align>center</align>
+					<focusedcolor>FFdddddd</focusedcolor>
+					<texturefocus border="10" colordiffuse="button_focus">button-rounded.png</texturefocus>
+					<texturenofocus border="10" colordiffuse="CC000000">button-rounded.png</texturenofocus>
+				</control>
+				<control type="button" id="3013">
+					<label>$ADDON[service.upnext 30034]</label>
+					<width >266</width>
+					<font>font13</font>
+					<textcolor>B3dddddd</textcolor>
+					<aligny>center</aligny>
+					<align>center</align>
+					<focusedcolor>FFdddddd</focusedcolor> 
+					<texturefocus border="10" colordiffuse="button_focus">button-rounded.png</texturefocus>
+					<texturenofocus border="10" colordiffuse="CC000000">button-rounded.png</texturenofocus>
+				</control>
+			</control>
+		</control>
+	</controls>
+</window>
