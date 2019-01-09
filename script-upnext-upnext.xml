@@ -7,11 +7,11 @@
 	<!-- Animation. -->
 	<animation type="WindowOpen" reversible="false">
 		<effect type="fade" start="0" end="100" time="1000" />
-		<effect type="slide" start="0,306" end="0,0" time="1000" />
+		<effect type="slide" start="0,306" end="0,0" time="500" />
 	</animation>
 	<animation type="WindowClose" reversible="false">
-		<effect type="fade" start="100" end="0" time="1000" />
-		<effect type="slide" start="0,0" end="0,306" time="1000" />
+		<effect type="fade" start="100" end="0" time="200" />
+		<effect type="slide" start="0,0" end="0,306" time="200" />
 	</animation>
 
 	<controls>
