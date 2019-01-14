@@ -2,7 +2,7 @@
 
 For use with the stock Kodi 18 Estuary Skin. The UI color will changed according to the Estuary color selected in Kodi settings. See screenshots for example.  
 
-Tested on 64bit Windows 10 with the latest Kodi 18 Nightly as of Jan 8th 2019 (KodiSetup-20190106-93e9045a-master-x64.exe), and UpNext plugin v1.0.0.
+Tested on 64bit Windows 10 with the latest Kodi 18 Nightly as of Jan 13th 2019 (KodiSetup-20190113-5a4a9394-master-x64.exe), and UpNext plugin v1.0.0.
 
 
 ### To install:
